@@ -1,0 +1,10 @@
+var libs={};
+libs.async=require('../node_modules/async');
+libs.express=require('../node_modules/express');
+libs.later=require('../node_modules/later');
+libs.moment=require('../node_modules/moment');
+libs.ejs=require('../node_modules/ejs');
+libs.iconv=require('../node_modules/iconv-lite');
+libs.sequelize=require('../node_modules/sequelize');
+libs.request=require('../node_modules/request'); 
+module.exports=libs;
