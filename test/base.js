@@ -9,7 +9,8 @@ var web=new Web();
 web.testText=testText;
 app.use(web.connect());
 app.get('/showRuntime',function(req,res){
-  res.send(req.webruntime.web.testText);
+  var runtime=web.getRuntime(req);
+  runtime.http.send(runtime.web.testText);
 });
 var server = app.listen(testport, function() {
   console.log('Listening on port %d', server.address().port);
