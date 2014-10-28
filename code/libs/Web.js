@@ -12,6 +12,7 @@ util.inherits(Web,events.EventEmitter);
 Web.prototype.createRuntime=function(req,res)
 {
   var runtime= new Runtime(this,req,res);
+  this.emit(env.eventCreateRuntime,{'runtime':runtime});
   return runtime;
 };
 Web.prototype.libs=libs;
@@ -20,7 +21,6 @@ Web.prototype.connect=function()
   var connect=function (req,res,next)
   {
     req[env.runtimeName]=this.createRuntime(req,res);
-    this.emit(env.eventCreateRuntime,{runtime:req.webruntime});
     return next();
   }
   return connect.bind(this);
