@@ -1,5 +1,5 @@
 var assert=require('assert');
-var Web=require('../code');
+var Web=require('../');
 var express=Web.libs.express;
 var request=Web.libs.request;
 var app=express();
