@@ -8,6 +8,7 @@ var help=function()
 }
 var main=function()
 {
+  var codePath=__dirname+'/../';
   var targetPath=process.argv[2];  
   if (null==targetPath){
     help();
@@ -32,8 +33,9 @@ var main=function()
     if (!fs.existsSync(targetPath+'/lib/')){return;}
     if (fs.existsSync(targetPath+'/lib/JExpressWeb')){fse.removeSync(targetPath+'/lib/JExpressWeb')}
   }
-  console.log(filesInDir.length);
-  console.log(__dirname);  
+  fse.copySync(codePath,targetPath+'/lib/JExpressWeb');
+  fse.removeSync(targetPath+'/lib/JExpressWeb/.git');
+  console.log(codePath);
 }
 
 main();
