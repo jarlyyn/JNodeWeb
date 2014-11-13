@@ -27,7 +27,7 @@ var main=function()
   }
   var filesInDir=fs.readdirSync(targetPath);
   if (filesInDir.length==0){
-    console.log('Creating lin directory');
+    console.log('Creating lib directory');
     fs.mkdirSync(targetPath+'/lib');
   }else{
     if (!fs.existsSync(targetPath+'/lib/')){return;}
