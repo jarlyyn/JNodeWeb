@@ -9,10 +9,15 @@ var view=web.registerModule(MVC);
 var testValue1='test a';
 var testValue2='test b';
 var testValue3='test c';
+var testValue4Defualt='test default d';
+var testValue4='test d';
+var testDataKey='testdatakey';
+var testDataKey2='testdatakey2';
 var correctMutliValue={ a: testValue1, b: testValue2 };
 view.registerData('a',function(runtime,callback){callback(null,testValue1)})
 view.registerData('b',function(runtime,callback){callback(null,testValue2)})
 view.registerData('c',function(runtime,callback){callback(null,testValue3)})
+view.registerData('d',function(data,callback){callback(null,data.params?data.params:testValue4Defualt)})
 var render1=view.registerView('view1','view1').bindData('a');
 var render2=view.registerView('view2').setLayout('view1').bindData('b').bindData('c');
 var render3=view.registerView('view3').setLayout('view2');
@@ -107,10 +112,37 @@ describe('Test Data',function(){
       done();
     });
   });
+it('Single Data With Object',function(done){
+    runtime.fetchData({name:'b'},function(err,data){
+      assert.ok(data==testValue2,'fetchModel return value error');
+      assert.ok(runtime.dataProviders['b']==testValue2,'fetchModel return value error');
+      done();
+    });
+  });    
+  it('Single Data With Object',function(done){
+    runtime.fetchData({name:'d',params:testValue4},function(err,data){
+      assert.ok(data==testValue4,'fetchModel return value error');
+      assert.ok(runtime.dataProviders['d']==testValue4,'fetchModel return value error');
+      done();
+    });
+  });
+  it('Single Data With Object',function(done){
+    runtime.fetchData({name:'d',keyword:testDataKey,params:testValue4},function(err,data){
+      assert.ok(data==testValue4,'fetchModel return value error');
+      assert.ok(runtime.dataProviders[testDataKey]==testValue4,'fetchModel return value error');
+      done();
+    });
+  });  
   it('Mutli Data',function(done){
     runtime.fetchDatas(['a','b'],function(err,data){
       assert.ok(JSON.stringify(data)==JSON.stringify(correctMutliValue),'fetchModels return value error');
       done();
     });
-  });  
+  });
+  it('Mutli Data With Object',function(done){
+    runtime.fetchDatas([{name:'d',keyword:testDataKey2,params:testValue4}],function(err,data){
+      assert.ok(runtime.dataProviders[testDataKey2]==testValue4,'fetchModel return value error');
+      done();
+    });
+  });    
 });
