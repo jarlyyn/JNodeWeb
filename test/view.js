@@ -1,11 +1,11 @@
 var assert=require('assert');
 var Web=require('../');
 var libs=Web.libs;
-var View=require('../lib/modules/View');
+var MVC=require('../lib/modules/MVC');
 var web=new Web();
 var EjsRender=require('../lib/renders/EjsRender');
 var ejsRender=new EjsRender();
-var view=web.registerModule(View);
+var view=web.registerModule(MVC);
 var testValue1='test a';
 var testValue2='test b';
 var testValue3='test c';
