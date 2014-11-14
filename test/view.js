@@ -133,6 +133,18 @@ it('Single Data With Object',function(done){
       done();
     });
   });  
+  it('Single Data With Object',function(done){
+    runtime.fetchData(null,function(err,data){
+      assert.ok(data==null,'fetchModel return value error');
+      done();
+    });
+  });    
+  it('Single Data With Object',function(done){
+    runtime.fetchData({},function(err,data){
+      assert.ok(data==null,'fetchModel return value error');
+      done();
+    });
+  });  
   it('Mutli Data',function(done){
     runtime.fetchDatas(['a','b'],function(err,data){
       assert.ok(JSON.stringify(data)==JSON.stringify(correctMutliValue),'fetchModels return value error');
