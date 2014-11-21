@@ -5,7 +5,7 @@ var MVC=require('../lib/modules/MVC');
 var web=new Web();
 var EjsRender=require('../lib/renders/EjsRender');
 var ejsRender=new EjsRender();
-var view=web.registerModule(MVC);
+var mvc=web.registerModule(MVC);
 var testValue1='test a';
 var testValue2='test b';
 var testValue3='test c';
@@ -14,25 +14,29 @@ var testValue4='test d';
 var testDataKey='testdatakey';
 var testDataKey2='testdatakey2';
 var correctMutliValue={ a: testValue1, b: testValue2 };
-view.registerData('a',function(runtime,callback){callback(null,testValue1)})
-view.registerData('b',function(runtime,callback){callback(null,testValue2)})
-view.registerData('c',function(runtime,callback){callback(null,testValue3)})
-view.registerData('d',function(data,callback){callback(null,data.params?data.params:testValue4Defualt)})
-var render1=view.registerView('view1','view1').bindData('a');
-var render2=view.registerView('view2').setLayout('view1').bindData('b').bindData('c');
-var render3=view.registerView('view3').setLayout('view2');
-var Render1layoutLength=1;
-var Render1layout1Path='view1';
-var Render1dataProvidersLength=1;
-var Render1dataProvidersName='a';
-var Render3layoutLength=3;
-var Render3layout1Path1='view3';
-var Render3layout1Path2='view2';
-var Render3layout1Path3='view1';
-var Render3dataProvidersLength=3;
-var Render3dataProvidersName1='b';
-var Render3dataProvidersName2='c';
-var Render3dataProvidersName3='a';
+mvc.registerData('a',function(runtime,callback){callback(null,testValue1)})
+mvc.registerData('b',function(runtime,callback){callback(null,testValue2)})
+mvc.registerData('c',function(runtime,callback){callback(null,testValue3)})
+mvc.registerData('d',function(data,callback){callback(null,data.params?data.params:testValue4Defualt)})
+var view1=mvc.registerView('view1','view1').bindData('a');
+var view2=mvc.registerView('view2').setLayout('view1').bindData('b').bindData('c');
+var view3=mvc.registerView('view3').setLayout('view2');
+mvc.registerWidget('test',function(data,callback){
+  params=data.params
+  callback(null,params);
+});
+var View1layoutLength=1;
+var View1layout1Path='view1';
+var View1dataProvidersLength=1;
+var View1dataProvidersName='a';
+var View3layoutLength=3;
+var View3layout1Path1='view3';
+var View3layout1Path2='view2';
+var View3layout1Path3='view1';
+var View3dataProvidersLength=3;
+var View3dataProvidersName1='b';
+var View3dataProvidersName2='c';
+var View3dataProvidersName3='a';
 var View1Params={'test':'testEnv'};
 var View1Data={params:View1Params,content:''};
 var View1Result='test testEnv ';
@@ -56,11 +60,11 @@ describe('Test ejs',function(){
 });
 describe('Test view',function(){
   it('Test view path',function(done){
-    view.setViewPath('');
-    view.renderFile('view1',View1Data,function(err,str){
+    mvc.setViewPath('');
+    mvc.renderFile('view1',View1Data,function(err,str){
       assert.ok(err,'err not raised');
-      view.setViewPath('./views/');
-      view.renderFile('view1',View1Data,function(err,str){
+      mvc.setViewPath('./views/');
+      mvc.renderFile('view1',View1Data,function(err,str){
 	assert.ok(err==null,'error raised');
 	assert.ok(str==View1Result,'view result error');
 	done();
@@ -70,14 +74,14 @@ describe('Test view',function(){
 });
 describe('Test runtime render',function(){
   it('Test layout',function(done){
-    view.setViewPath('./views/');  
+    mvc.setViewPath('./views/');  
     runtime.render('view2',View1Params,function(err,data){
       assert.ok(data=='test testEnv view2 test a','view result error');
       done();
     });
   });
   it('Test layouts',function(done){
-    view.setViewPath('./views/');  
+    mvc.setViewPath('./views/');  
     runtime.render('view3',View1Params,function(err,data){
       assert.ok(data=='test testEnv view2 test aview3','view result error');
       done();
@@ -86,21 +90,21 @@ describe('Test runtime render',function(){
 })
 describe('Test render',function(){
   it('Render Data',function(done){
-    var layouts=render1.getLayouts();
-    var dataProviders=render1.getDataProviders();
-      assert.ok(layouts.length==Render1layoutLength,'Layout length error');
-      assert.ok(layouts[0].viewpath==Render1layout1Path,'Layout view error');
-      assert.ok(dataProviders.length==Render1dataProvidersLength,'Data length error');
-      assert.ok(dataProviders[0]==Render1dataProvidersName,'Data Name error');
-    var layouts=render3.getLayouts();
-    var dataProviders=render3.getDataProviders();
-      assert.ok(layouts.length==Render3layoutLength,'Layout length error');
-      assert.ok(layouts[0].viewpath==Render3layout1Path1,'Layout view error');
-      assert.ok(layouts[1].viewpath==Render3layout1Path2,'Layout view error');
-      assert.ok(layouts[2].viewpath==Render3layout1Path3,'Layout view error');
-      assert.ok(dataProviders.length==Render3dataProvidersLength,'Data length error');
-      assert.ok(dataProviders[0]==Render3dataProvidersName1,'Data Name error');
-      assert.ok(dataProviders[1]==Render3dataProvidersName2,'Data Name error');
+    var layouts=view1.getLayouts();
+    var dataProviders=view1.getDataProviders();
+      assert.ok(layouts.length==View1layoutLength,'Layout length error');
+      assert.ok(layouts[0].viewpath==View1layout1Path,'Layout view error');
+      assert.ok(dataProviders.length==View1dataProvidersLength,'Data length error');
+      assert.ok(dataProviders[0]==View1dataProvidersName,'Data Name error');
+    var layouts=view3.getLayouts();
+    var dataProviders=view3.getDataProviders();
+      assert.ok(layouts.length==View3layoutLength,'Layout length error');
+      assert.ok(layouts[0].viewpath==View3layout1Path1,'Layout view error');
+      assert.ok(layouts[1].viewpath==View3layout1Path2,'Layout view error');
+      assert.ok(layouts[2].viewpath==View3layout1Path3,'Layout view error');
+      assert.ok(dataProviders.length==View3dataProvidersLength,'Data length error');
+      assert.ok(dataProviders[0]==View3dataProvidersName1,'Data Name error');
+      assert.ok(dataProviders[1]==View3dataProvidersName2,'Data Name error');
       done();
   });
 });
@@ -157,4 +161,20 @@ it('Single Data With Object',function(done){
       done();
     });
   });    
+});
+describe('Test Widget',function(){
+  it('Simple Widget',function(done){
+    runtime.widget('test',testValue1,function(err,data){
+      assert.ok(data==testValue1,'Widget output error');
+      assert.ok(runtime.widgets.test==testValue1,'Widget output error');
+      done();
+    })
+  });
+  it('Simple Widget With Object',function(done){
+    runtime.widget({name:'test',keyword:'test2'},testValue1,function(err,data){
+      assert.ok(data==testValue1,'Widget output error');
+      assert.ok(runtime.widgets.test2==testValue1,'Widget output error');
+      done();
+    })
+  });  
 });

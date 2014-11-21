@@ -31,10 +31,10 @@ var main=function()
     fs.mkdirSync(targetPath+'/lib');
   }else{
     if (!fs.existsSync(targetPath+'/lib/')){return;}
-    if (fs.existsSync(targetPath+'/lib/JExpressWeb')){fse.removeSync(targetPath+'/lib/JExpressWeb')}
+    if (fs.existsSync(targetPath+'/lib/JNodeWeb')){fse.removeSync(targetPath+'/lib/JNodeWeb')}
   }
-  fse.copySync(codePath,targetPath+'/lib/JExpressWeb');
-  fse.removeSync(targetPath+'/lib/JExpressWeb/.git');
+  fse.copySync(codePath,targetPath+'/lib/JNodeWeb');
+  fse.removeSync(targetPath+'/lib/JNodeWeb/.git');
   console.log(codePath);
 }
 
