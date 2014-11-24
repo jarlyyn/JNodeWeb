@@ -14,17 +14,13 @@ var testValue4='test d';
 var testDataKey='testdatakey';
 var testDataKey2='testdatakey2';
 var correctMutliValue={ a: testValue1, b: testValue2 };
-mvc.registerData('a',function(runtime,callback){callback(null,testValue1)})
-mvc.registerData('b',function(runtime,callback){callback(null,testValue2)})
-mvc.registerData('c',function(runtime,callback){callback(null,testValue3)})
-mvc.registerData('d',function(data,callback){callback(null,data.params?data.params:testValue4Defualt)})
+mvc.registerData('a',function(callback,runtime,params){callback(null,testValue1)})
+mvc.registerData('b',function(callback,runtime,params){callback(null,testValue2)})
+mvc.registerData('c',function(callback,runtime,params){callback(null,testValue3)})
+mvc.registerData('d',function(callback,runtime,params){callback(null,params?params:testValue4Defualt)})
 var view1=mvc.registerView('view1','view1').bindData('a');
 var view2=mvc.registerView('view2').setLayout('view1').bindData('b').bindData('c');
 var view3=mvc.registerView('view3').setLayout('view2');
-mvc.registerWidget('test',function(data,callback){
-  params=data.params
-  callback(null,params);
-});
 var View1layoutLength=1;
 var View1layout1Path='view1';
 var View1dataProvidersLength=1;
@@ -161,20 +157,4 @@ it('Single Data With Object',function(done){
       done();
     });
   });    
-});
-describe('Test Widget',function(){
-  it('Simple Widget',function(done){
-    runtime.widget('test',testValue1,function(err,data){
-      assert.ok(data==testValue1,'Widget output error');
-      assert.ok(runtime.widgets.test==testValue1,'Widget output error');
-      done();
-    })
-  });
-  it('Simple Widget With Object',function(done){
-    runtime.widget({name:'test',keyword:'test2'},testValue1,function(err,data){
-      assert.ok(data==testValue1,'Widget output error');
-      assert.ok(runtime.widgets.test2==testValue1,'Widget output error');
-      done();
-    })
-  });  
 });
