@@ -1,0 +1,10 @@
+var Web=require('../lib/JNodeWeb');
+web=new Web();
+var app=web.app();
+app.load(__dirname+'/views');
+app.load(__dirname+'/routers');
+app.load(__dirname+'/actions');
+app.load(__dirname+'/models');
+app.load(__dirname+'/dataproviders');
+app.load(__dirname+'/forms');
+module.exports=app;
