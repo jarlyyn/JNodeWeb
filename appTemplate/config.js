@@ -13,10 +13,9 @@ module.exports=
 	  }
       }
     }
-  }
+  },
   "cache":{
     'mem':{store: 'memory', max: 100, ttl: 100}
   }
-
 }
  

@@ -14,8 +14,9 @@ var Web=require('../');
 var libs=Web.libs;
 web=new Web(webconfig);
 var cacheManager=libs.cacheManager;
-var SettingsPlugin=require('../lib/plugins/seSettings');
-var settings=new (SettingsPlugin(web))();
+//var SettingsPlugin=require('../lib/plugins/seSettings');
+var Settings=web.plugin('seSettings');
+var settings=new Settings();
 describe('Test cache',function(){
   it('test set',function(done){
     settings.set('test','15',function(err){
