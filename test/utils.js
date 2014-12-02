@@ -7,7 +7,7 @@ var getDataLevel3NullValue=4
 var getData={};
 getData.level2={};
 getData.level2.level3=getDataLevel3Value;
-describe('Test ejs',function(){
+describe('Test get',function(){
   it('get',function(done)
   {
     assert.ok(utils.get(getData)==getData);;

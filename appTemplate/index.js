@@ -1,5 +1,5 @@
-var Web=require('../lib/JNodeWeb');
-web=new Web();
+var config=require('./config.js');
+web=new Web(config);
 var app=web.app();
 app.load(__dirname+'/views');
 app.load(__dirname+'/routers');
