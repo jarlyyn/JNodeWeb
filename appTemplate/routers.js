@@ -4,8 +4,11 @@ module.exports=function(app,web)
   var MVC=web.MVC; 
   var Http=web.Http;
   var run=web.expessRun();  
+  var HttpError=web.expressHttpError();  
   var express=web.libs.express;  
-  
+
+  //  app.use('/assets',web.libs.express.static(__dirname + '/assets'));    
+  //  app.use(web.libs.bodyParser());
 //   app.all('/login',run(
 //     web.IF(Form.isValidated('login'))(
 //       'login',
@@ -31,4 +34,5 @@ module.exports=function(app,web)
 //   ));  
   
   app.use(run(Http.doNotFound()));
+  app.use(HttpError(404)(MVC.doRender('404')));  
 }

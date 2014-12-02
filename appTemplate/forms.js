@@ -2,15 +2,18 @@ module.exports=function(app,web)
 {
   var Form=web.Form;
 
-//   var customerValidator=function(callback,form,name,params){
+//   Form.registerValidator('userExists',function(callback,form,name,params){
 //     if (form.hasError){return callback(null,true)}
-//     if (form.get(name)=='value')
-//     {
-//       return callback(null,true);
-//     }
-//     return callback(null,false);
-//   }   
-//   
+//     var query={where:{}}
+//     query.where[name]=form.get(name);
+//     web.models.userModel.find(query).success(
+//       function(user){
+// 	form._userModel=user;
+// 	console.log(user);
+// 	return callback(null,user?true:false);
+//       }
+//     );
+//   });
 //   var getUpdateUnquieQuery=function(form,name){return {where:{'id':{'ne':form.get('id')}}};}
 // 
 //   var updateForm=Form.registerForm('update');
@@ -22,5 +25,5 @@ module.exports=function(app,web)
 //     .addValidator(['seUnique',web.models.userModel,'username',getUpdateUnquieQuery],'用户名已经被使用');
 //   updateUserForm.field('id')
 //     .required('没有ID')
-//     .addValidator(userExistsValidator,'用户不存在');
+//     .addValidator('userExists','用户不存在');
 //     
