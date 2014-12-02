@@ -29,4 +29,6 @@ module.exports=function(app,web)
 //     Http.notFoundIfNot(Form.isValidated('listuser')),
 //     MVC.doJsonData('usersjson')
 //   ));  
+  
+  app.use(run(Http.doNotFound()));
 }
