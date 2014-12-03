@@ -1,6 +1,8 @@
 var config=require('./config.js');
 web=new Web(config);
 var app=web.app();
+// var Settings=web.plugin('seSettings');
+// web.settings=new Settings();
 app.load(__dirname+'/views');
 app.load(__dirname+'/routers');
 app.load(__dirname+'/actions');
