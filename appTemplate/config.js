@@ -5,6 +5,7 @@ module.exports=
     "sequelize":{
       "url":"mysql://username:password@host/dbname",
       "options":{
+	  "logging":false,
 	  "dialectOptions":{
 	    "charset":"UTF8"
 	  },
