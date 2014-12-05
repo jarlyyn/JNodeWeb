@@ -26,4 +26,5 @@ module.exports=function(app,web)
 //   updateUserForm.field('id')
 //     .required('没有ID')
 //     .addValidator('userExists','用户不存在');
-//     
+//
+}

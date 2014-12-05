@@ -3,7 +3,7 @@ module.exports=function(app,web)
   var Form=web.Form;
   var MVC=web.MVC; 
   var Http=web.Http;
-  var run=web.expessRun();  
+  var Run=web.expessRun();  
   var HttpError=web.expressHttpError();  
   var express=web.libs.express;  
 
@@ -33,6 +33,6 @@ module.exports=function(app,web)
 //     MVC.doJsonData('usersjson')
 //   ));  
   
-  app.use(run(Http.doNotFound()));
+  app.use(Run(Http.doNotFound()));
   app.use(HttpError(404)(MVC.doRender('404')));  
 }

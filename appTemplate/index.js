@@ -1,3 +1,4 @@
+var Web=require('../lib/JNodeWeb');
 var config=require('./config.js');
 web=new Web(config);
 var app=web.app();
