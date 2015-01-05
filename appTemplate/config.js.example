@@ -9,5 +9,8 @@ module.exports=
 //       "suffix":"",
 //     },
   }, 
+  "modules":[
+//    'html',
+  ],
 }
  
